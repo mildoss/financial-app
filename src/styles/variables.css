@@ -1,0 +1,25 @@
+:root {
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --success-500: #10b981;
+  --success-600: #059669;
+  --danger-500: #ef4444;
+  --danger-600: #dc2626;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-500: #6b7280;
+  --gray-900: #111827;
+
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+
+  --spacing-2: 0.5rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+
+  --border-radius: 0.375rem;
+  --border-radius-lg: 0.5rem;
+
+}

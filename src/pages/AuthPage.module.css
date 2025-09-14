@@ -1,0 +1,70 @@
+.page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.header {
+  text-align: center;
+  padding: 2rem 2rem 1rem;
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  background: #f7fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tab {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 1rem;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--gray-500);
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.tab:hover {
+  color: var(--primary-600);
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.tabActive {
+  color: var(--primary-600);
+  background-color: #e0f2ff;
+}
+
+.tabActive::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--primary-500);
+}
+
+.content {
+  padding: 2rem;
+}

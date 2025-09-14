@@ -1,0 +1,27 @@
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  font-size: 1.875rem;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  color: var(--gray-500);
+  font-size: 1rem;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}

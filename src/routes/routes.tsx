@@ -1,20 +1,13 @@
 import {ProtectedRoute} from "./ProtectedRoute.tsx";
 import {PublicRoute} from "./PublicRoute.tsx";
+import {AuthPage} from "@pages/AuthPage.tsx"
 
 export const routes = [
   {
-    path: '/register',
+    path: '/auth',
     element: (
       <PublicRoute>
-        <h1>Register</h1>
-      </PublicRoute>
-    )
-  },
-  {
-    path: '/login',
-    element: (
-      <PublicRoute>
-        <h1>Login</h1>
+        <AuthPage/>
       </PublicRoute>
     )
   },

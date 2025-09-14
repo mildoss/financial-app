@@ -1,7 +1,7 @@
+import {Navigate} from "react-router-dom";
 import type {ReactNode} from "react";
 import {useSelector} from "react-redux";
-import {selectCurrentUser} from "../store/authSlice.ts";
-import {Navigate} from "react-router-dom";
+import {selectCurrentUser} from "@store/authSlice";
 
 export const PublicRoute = ({children}: {children: ReactNode}) => {
   const user = useSelector(selectCurrentUser);
