@@ -30,3 +30,59 @@ export interface AuthResponse {
   user: User;
   message: string;
 }
+
+export interface Transaction {
+  id: number;
+  amount: number;
+  description: string;
+  type: string;
+  date: string;
+  created_at: string;
+}
+
+export interface Pagination {
+  page: number;
+  limit: number;
+  total: number;
+  pages: number;
+}
+
+export interface TransactionsResponse {
+  message?: string;
+  transactions: Transaction[];
+  pagination?: Pagination;
+}
+
+export interface TransactionRequest {
+  id?: number;
+  amount: number;
+  description: string;
+  type: string;
+  date: string;
+}
+
+export interface Overview {
+  balance: number;
+  total_income: number;
+  total_expenses: number;
+  total_transactions: number;
+}
+
+export interface CurrentMonth {
+  income: number;
+  expenses: number;
+  transactions: number;
+  balance: number;
+}
+
+export interface ExpenseCategory {
+  category: string;
+  amount: number;
+}
+
+export interface StatsResponse {
+  overview: Overview;
+  current_month: CurrentMonth;
+  top_expense_categories: ExpenseCategory[];
+  recent_transactions: Transaction[];
+}

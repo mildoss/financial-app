@@ -1,0 +1,31 @@
+.chartWrapper {
+  display: flex;
+  gap: 5rem;
+  justify-content: center;
+}
+
+.chartWrapper > div {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+
+}
+
+@media (max-width: 920px) {
+  .chartWrapper {
+    gap: 2rem;
+  }
+  .chartWrapper > div {
+    height: 250px;
+  }
+}
+
+@media (max-width: 600px) {
+  .chartWrapper  {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+}

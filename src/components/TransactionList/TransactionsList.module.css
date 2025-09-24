@@ -1,0 +1,204 @@
+.container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 2rem 0;
+}
+
+.header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin: 0;
+}
+
+.filters {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filterBtn {
+  padding: 0.5rem 1rem;
+  border: 2px solid #e5e7eb;
+  background: white;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filterBtn:hover {
+  border-color: #3b82f6;
+}
+
+.filterBtn.active {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+.tableContainer {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableHeader {
+  background: #f9fafb;
+}
+
+.tableHeader th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tableRow {
+  transition: background-color 0.2s;
+}
+
+.tableRow:hover {
+  background: #f9fafb;
+}
+
+.tableRow td {
+  padding: 1rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.descriptionCol { width: 40%; }
+.typeCol { width: 15%; }
+.amountCol { width: 20%; }
+.dateCol { width: 15%; }
+.actionsCol { width: 10%; }
+
+
+.typeBadge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.typeBadge.income {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.typeBadge.expense {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.amount {
+  font-weight: bold;
+}
+
+.amount.income {
+  color: #10b981;
+}
+
+.amount.expense {
+  color: #ef4444;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.editBtn, .deleteBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.editBtn:hover {
+  background: #e0e7ff;
+}
+
+.deleteBtn:hover {
+  background: #fee2e2;
+}
+
+.mobileCards {
+  display: none;
+}
+
+@media (max-width: 920px) {
+  .tableContainer {
+    display: none;
+  }
+
+  .mobileCards {
+    display: block;
+    padding: 1rem;
+  }
+
+  .mobileCard {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .cardHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .cardDescription {
+    font-weight: 500;
+    color: #1f2937;
+  }
+
+  .cardFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cardAmount {
+    font-weight: bold;
+  }
+
+  .cardAmount.income {
+    color: #10b981;
+  }
+
+  .cardAmount.expense {
+    color: #ef4444;
+  }
+
+  .cardDate {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+}
+
+@media (max-width: 500px) {
+  .header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

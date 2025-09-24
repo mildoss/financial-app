@@ -8,7 +8,7 @@ import "@styles/page.css";
 import "@styles/form.css";
 
 export const LoginForm = ({message}: {message: string}) => {
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
   const [formData,setFormData] = useState<LoginRequest>({
     email: '',
