@@ -9,7 +9,7 @@
 
 .label {
   font-size: var(--font-size-sm);
-  color: #ffffff;
+  color: var(--secondary-600);
 }
 
 .overlay {
@@ -28,11 +28,33 @@
   z-index: 1000;
   background-color: whitesmoke;
   border-radius: var(--border-radius);
+  padding: 0.5rem;
+  width: 80vw;
 }
 
-@media (max-width: 600px) {
+.span {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  user-select: none;
+  transform-origin: top right;
+}
+
+.span:hover {
+  transform: scale(1.2);
+}
+
+@media (max-width: 1050px) {
  .form {
    display: block;
+ }
+ .modal {
+   width: 95vw;
+   padding: 0.5rem;
  }
 }
 

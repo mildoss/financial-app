@@ -39,7 +39,7 @@ export const TransactionCardList = ({
                 {transaction.description}
               </span>
             </div>
-            <div className="btnGroup">
+            <div className={styles.btnGroup}>
               <span
                 onClick={() => handleEdit(transaction)}
                 className={styles.editBtn}

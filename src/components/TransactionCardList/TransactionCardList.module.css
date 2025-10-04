@@ -56,4 +56,9 @@
     font-size: 0.875rem;
     color: #6b7280;
   }
+
+  .btnGroup {
+    display: flex;
+    gap: 0.5rem;
+  }
 }
