@@ -1,45 +1,48 @@
-import {type ChangeEvent, type FormEvent, useState} from "react";
-import type {LoginRequest} from "../../types";
-import {useNavigate} from "react-router-dom";
-import {useGetCurrentUserQuery, useLoginMutation} from "@store/api";
-import {validateLoginForm} from "@utils/validators.ts";
-import {getErrorMessage} from "@utils/errorUtils.ts";
+import { type ChangeEvent, type FormEvent, useState } from "react";
+import type { LoginRequest } from "../types.ts";
+import { useNavigate } from "react-router-dom";
+import { useGetCurrentUserQuery, useLoginMutation } from "@store/api.ts";
+import { validateLoginForm } from "@utils/validators.ts";
+import { getErrorMessage } from "@utils/errorUtils.ts";
 import "@styles/page.css";
 import "@styles/form.css";
 
-export const LoginForm = ({message}: {message: string}) => {
+export const LoginForm = ({ message }: { message: string }) => {
   const navigate = useNavigate();
 
-  const [formData,setFormData] = useState<LoginRequest>({
-    email: '',
-    password: ''
+  const [formData, setFormData] = useState<LoginRequest>({
+    email: "",
+    password: "",
   });
 
-  const [formErrors, setFormErrors] = useState<{ email?: string; password?: string }>({});
+  const [formErrors, setFormErrors] = useState<{
+    email?: string;
+    password?: string;
+  }>({});
   const { refetch } = useGetCurrentUserQuery();
   const [login, { isLoading, error }] = useLoginMutation();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>  {
-    const {name,value} = e.target;
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
 
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
-    }))
-
-    setFormErrors(prev => ({
-      ...prev,
-      [name]: undefined
+      [name]: value,
     }));
-  }
 
-  const handleSubmit = async (e: FormEvent)=> {
+    setFormErrors((prev) => ({
+      ...prev,
+      [name]: undefined,
+    }));
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const errors = validateLoginForm(formData);
     setFormErrors({
       email: errors.email ?? undefined,
-      password: errors.password ?? undefined
+      password: errors.password ?? undefined,
     });
 
     if (errors.email || errors.password) {
@@ -49,22 +52,16 @@ export const LoginForm = ({message}: {message: string}) => {
     try {
       await login(formData).unwrap();
       await refetch();
-      navigate('/');
+      navigate("/");
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit} className="form">
-      {message && <div className="message">
-        {message}
-      </div>
-      }
-      {error && <div className="error">
-        {getErrorMessage(error)}
-      </div>
-      }
+      {message && <div className="message">{message}</div>}
+      {error && <div className="error">{getErrorMessage(error)}</div>}
       <div className="inputGroup">
         <label className="label" htmlFor="email">
           Email
@@ -100,10 +97,10 @@ export const LoginForm = ({message}: {message: string}) => {
       <button
         type="submit"
         disabled={isLoading}
-        className={`submitBtn ${isLoading ? 'submitBtnLoading' : ''}`}
+        className={`submitBtn ${isLoading ? "submitBtnLoading" : ""}`}
       >
-        {isLoading ? 'Signing in...' : 'Sign in'}
+        {isLoading ? "Signing in..." : "Sign in"}
       </button>
     </form>
-  )
-}
+  );
+};

@@ -1,23 +1,39 @@
-import {ProtectedRoute} from "./ProtectedRoute.tsx";
-import {PublicRoute} from "./PublicRoute.tsx";
-import {AuthPage} from "@pages/AuthPage.tsx"
-import {DashboardPage} from "@pages/DashboardPage.tsx";
+import { ProtectedRoute } from "./ProtectedRoute.tsx";
+import { PublicRoute } from "./PublicRoute.tsx";
+import { AuthPage } from "@pages/AuthPage/AuthPage.tsx";
+import { DashboardPage } from "@pages/DashboardPage/DashboardPage.tsx";
+import { Layout } from "../layout/Layout.tsx";
+import { TransactionsPage } from "@pages/TransactionsPage/TransactionsPage.tsx";
 
 export const routes = [
   {
-    path: '/auth',
+    path: "/auth",
     element: (
       <PublicRoute>
-        <AuthPage/>
+        <AuthPage />
       </PublicRoute>
-    )
+    ),
   },
   {
-    path: '/',
+    path: "/",
     element: (
       <ProtectedRoute>
-        <DashboardPage/>
+        <Layout />
       </ProtectedRoute>
-    )
-  }
-]
+    ),
+    children: [
+      {
+        index: true,
+        element: <DashboardPage />,
+      },
+      {
+        path: "transaction",
+        element: <TransactionsPage />,
+      },
+      {
+        path: "stats",
+        element: <h2>Hello</h2>,
+      },
+    ],
+  },
+];

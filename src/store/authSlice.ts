@@ -1,32 +1,29 @@
-import type {User} from "../types.ts";
-import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
-import type {RootState} from "./store.ts";
+import type { User } from "../types.ts";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { RootState } from "./store.ts";
 
 interface AuthState {
   user: User | null;
 }
 
 const initialState: AuthState = {
-  user: null
-}
+  user: null,
+};
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
-    setUser: (state,action: PayloadAction<{user: User}>) => {
+    setUser: (state, action: PayloadAction<{ user: User }>) => {
       state.user = action.payload.user;
     },
     logout: (state) => {
       state.user = null;
-    }
-  }
-})
+    },
+  },
+});
 
-export const  {
-  setUser,
-  logout
-} = authSlice.actions;
+export const { setUser, logout } = authSlice.actions;
 
 export default authSlice.reducer;
 

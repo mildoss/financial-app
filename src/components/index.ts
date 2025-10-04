@@ -1,2 +1,5 @@
-export {LoginForm} from './LoginForm/LoginForm'
-export {RegisterForm} from './RegisterForm/RegisterForm'
+export {LoginForm} from './LoginForm.tsx'
+export {RegisterForm} from './RegisterForm.tsx'
+export {TransactionsList} from './TransactionsList/TransactionsList.tsx'
+export {TransactionForm} from './TransactionForm/TransactionForm.tsx'
+export {Pagination} from './Pagination/Pagination.tsx'

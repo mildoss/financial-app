@@ -1,8 +1,8 @@
-import {type ChangeEvent, type FC, type FormEvent, useState} from "react";
-import type { RegisterRequest } from '../../types.ts';
-import {useRegisterMutation} from "@store/api.ts";
-import {validateRegisterForm} from "@utils/validators.ts";
-import {getErrorMessage} from "@utils/errorUtils.ts";
+import { type ChangeEvent, type FC, type FormEvent, useState } from "react";
+import type { RegisterRequest } from "../types.ts";
+import { useRegisterMutation } from "@store/api.ts";
+import { validateRegisterForm } from "@utils/validators.ts";
+import { getErrorMessage } from "@utils/errorUtils.ts";
 import "@styles/page.css";
 import "@styles/form.css";
 
@@ -11,40 +11,43 @@ interface Props {
   setMessage: (value: string) => void;
 }
 
-export const RegisterForm: FC<Props> = ({onChangeActiveTab,setMessage}) => {
-
-  const [formData,setFormData] = useState<RegisterRequest>({
-    name: '',
-    email: '',
-    password: ''
+export const RegisterForm: FC<Props> = ({ onChangeActiveTab, setMessage }) => {
+  const [formData, setFormData] = useState<RegisterRequest>({
+    name: "",
+    email: "",
+    password: "",
   });
 
-  const [formErrors, setFormErrors] = useState<{ name?: string; email?: string; password?: string }>({});
+  const [formErrors, setFormErrors] = useState<{
+    name?: string;
+    email?: string;
+    password?: string;
+  }>({});
 
   const [register, { isLoading, error }] = useRegisterMutation();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>  {
-    const {name,value} = e.target;
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
 
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
-    }))
-
-    setFormErrors(prev => ({
-      ...prev,
-      [name]: undefined
+      [name]: value,
     }));
-  }
 
-  const handleSubmit = async (e: FormEvent)=> {
+    setFormErrors((prev) => ({
+      ...prev,
+      [name]: undefined,
+    }));
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const errors = validateRegisterForm(formData);
     setFormErrors({
       name: errors.name ?? undefined,
       email: errors.email ?? undefined,
-      password: errors.password ?? undefined
+      password: errors.password ?? undefined,
     });
 
     if (errors.name || errors.email || errors.password) {
@@ -56,16 +59,13 @@ export const RegisterForm: FC<Props> = ({onChangeActiveTab,setMessage}) => {
       setMessage(result.message);
       onChangeActiveTab();
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit} className="form">
-      {error && <div className="error">
-        {getErrorMessage(error)}
-      </div>
-      }
+      {error && <div className="error">{getErrorMessage(error)}</div>}
       <div className="inputGroup">
         <label className="label" htmlFor="name">
           Name
@@ -117,10 +117,10 @@ export const RegisterForm: FC<Props> = ({onChangeActiveTab,setMessage}) => {
       <button
         type="submit"
         disabled={isLoading}
-        className={`submitBtn ${isLoading ? 'submitBtnLoading' : ''}`}
+        className={`submitBtn ${isLoading ? "submitBtnLoading" : ""}`}
       >
-        {isLoading ? 'Signing up...' : 'Sign up'}
+        {isLoading ? "Signing up..." : "Sign up"}
       </button>
     </form>
-  )
-}
+  );
+};

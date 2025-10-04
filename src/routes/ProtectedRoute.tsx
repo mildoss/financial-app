@@ -1,14 +1,14 @@
-import {Navigate} from "react-router-dom";
-import type {ReactNode} from "react";
-import {useSelector} from "react-redux";
-import {selectCurrentUser} from "@store/authSlice";
+import { Navigate } from "react-router-dom";
+import type { ReactNode } from "react";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "@store/authSlice";
 
-export const ProtectedRoute = ({children}: {children: ReactNode}) => {
+export const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const user = useSelector(selectCurrentUser);
 
   if (!user) {
-    return <Navigate to='/auth' replace/>
+    return <Navigate to="/auth" replace />;
   }
 
-  return <>{children}</>
-}
+  return <>{children}</>;
+};

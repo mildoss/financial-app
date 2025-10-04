@@ -34,6 +34,7 @@
   font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.2s;
+  height: 100%;
 }
 
 .filterBtn:hover {
@@ -44,6 +45,12 @@
   background: #3b82f6;
   color: white;
   border-color: #3b82f6;
+}
+
+.inputGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
 }
 
 .tableContainer {
@@ -143,6 +150,11 @@
 }
 
 @media (max-width: 920px) {
+  .filters {
+    flex-direction: column;
+    align-items: center;
+  }
+
   .tableContainer {
     display: none;
   }
@@ -163,8 +175,14 @@
   .cardHeader {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 0.5rem;
     margin-bottom: 0.5rem;
+  }
+
+  .infoGroup {
+    display: flex;
+    gap: 0.5rem;
   }
 
   .cardDescription {
@@ -196,9 +214,15 @@
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 540px) {
   .header {
     flex-direction: column;
     gap: 0.5rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .inputGroup {
+    flex-direction: column;
   }
 }

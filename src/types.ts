@@ -31,6 +31,8 @@ export interface AuthResponse {
   message: string;
 }
 
+export type TransactionType = 'all' | 'income' | 'expense';
+
 export interface Transaction {
   id: number;
   amount: number;
@@ -38,6 +40,12 @@ export interface Transaction {
   type: string;
   date: string;
   created_at: string;
+}
+
+export interface TransactionFilter {
+  type: 'all' | 'income' | 'expense';
+  dateFrom?: string | null;
+  dateTo?: string | null;
 }
 
 export interface Pagination {
