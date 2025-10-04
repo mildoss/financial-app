@@ -1,0 +1,38 @@
+.filtersRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.filterBtn {
+  padding: 0.5rem 1rem;
+  border: 2px solid #e5e7eb;
+  background: white;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  height: 100%;
+}
+
+.filterBtn:hover {
+  border-color: #3b82f6;
+}
+
+.filterBtn.active {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+.inputGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+@media (max-width: 400px) {
+  .inputGroup {
+    flex-direction: column;
+  }
+}

@@ -1,4 +1,4 @@
-import type { User } from "../types.ts";
+import type { User } from "types.ts";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store.ts";
 

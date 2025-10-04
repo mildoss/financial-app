@@ -1,0 +1,59 @@
+.mobileCards {
+  display: none;
+}
+
+@media(max-width: 920px) {
+  .mobileCards {
+    display: block;
+    padding: 1rem;
+  }
+
+  .mobileCard {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .cardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .infoGroup {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .cardDescription {
+    font-weight: 500;
+    color: #1f2937;
+  }
+
+  .cardFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cardAmount {
+    font-weight: bold;
+  }
+
+  .cardAmount.income {
+    color: #10b981;
+  }
+
+  .cardAmount.expense {
+    color: #ef4444;
+  }
+
+  .cardDate {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+}

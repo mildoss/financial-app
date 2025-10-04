@@ -1,5 +1,5 @@
-import styles from "./Pagination.module.css";
 import { getPages } from "@utils/getPagesUtils.ts";
+import styles from "./Pagination.module.css";
 
 interface Props {
   currentPage: number;
@@ -13,6 +13,8 @@ export const Pagination = ({
   onPageChange,
 }: Props) => {
   const pages = getPages(currentPage, totalPages);
+
+  if (totalPages <= 1) return null;
 
   return (
     <div className={styles.pagination}>

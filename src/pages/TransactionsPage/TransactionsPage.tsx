@@ -1,14 +1,13 @@
-import { TransactionsList } from "@components/index";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useGetTransactionsQuery } from "@store/api.ts";
-import type { TransactionFilter } from "../../types.ts";
+import { selectFilters, setTransactionFilter } from "@store/filtersSlice.ts";
+import type { TransactionFilter } from "types.ts";
+import { TransactionsList } from "@components/index";
 
 export const TransactionsPage = () => {
-  const [filter, setFilter] = useState<TransactionFilter>({
-    type: "all",
-    dateFrom: null,
-    dateTo: null,
-  });
+  const filter = useSelector(selectFilters);
+  const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const { data: transData } = useGetTransactionsQuery({
     type: filter.type,
@@ -22,7 +21,7 @@ export const TransactionsPage = () => {
   const pagination = transData?.pagination;
 
   const handleFilterChange = (newFilter: Partial<TransactionFilter>) => {
-    setFilter((prev) => ({ ...prev, ...newFilter }));
+    dispatch(setTransactionFilter(newFilter));
     setCurrentPage(1);
   };
   return (

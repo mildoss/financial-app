@@ -8,8 +8,8 @@ import type {
   StatsResponse,
   TransactionRequest,
   TransactionsResponse,
-} from "../types.ts";
-import type { TransactionType } from "types.ts";
+  TransactionType,
+} from "types.ts";
 
 export const api = createApi({
   reducerPath: "api",

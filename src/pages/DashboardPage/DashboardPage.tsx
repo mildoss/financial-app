@@ -1,9 +1,12 @@
-import { useGetStatsQuery, useGetTransactionsQuery } from "@store/api.ts";
 import { useState } from "react";
-import { BalanceChart } from "@components/BalanceChart.tsx";
-import styles from "./DashboardPage.module.css";
-import { TransactionForm, TransactionsList } from "@components/index";
+import { useGetStatsQuery, useGetTransactionsQuery } from "@store/api.ts";
 import type { TransactionFilter } from "types.ts";
+import {
+  BalanceChart,
+  TransactionForm,
+  TransactionsList,
+} from "@components/index";
+import styles from "./DashboardPage.module.css";
 
 export const DashboardPage = () => {
   const [filter, setFilter] = useState<TransactionFilter>({

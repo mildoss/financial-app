@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
-import type { ReactNode } from "react";
 import { useSelector } from "react-redux";
+import type { ReactNode } from "react";
 import { selectCurrentUser } from "@store/authSlice";
 
 export const ProtectedRoute = ({ children }: { children: ReactNode }) => {

@@ -1,5 +1,5 @@
-import { useDispatch } from "react-redux";
 import { type ReactNode, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useGetCurrentUserQuery } from "@store/api";
 import { setUser } from "@store/authSlice";
 
