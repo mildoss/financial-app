@@ -15,6 +15,8 @@ import { validateTransactionForm } from "@utils/validators.ts";
 import { isChangedTransaction } from "@utils/changedUtils.ts";
 import { formatDateInput } from "@utils/format.ts";
 import type { Transaction } from "types.ts";
+import { showToast } from "@store/toastSlice.ts";
+import { useDispatch } from "react-redux";
 
 interface Props {
   transaction?: Transaction | null;
@@ -25,6 +27,7 @@ interface Props {
 export const TransactionForm = ({ transaction, isOpen, setIsOpen }: Props) => {
   const isEditMode = !!transaction;
   const isModalMode = isEditMode || isOpen;
+  const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     amount: "",
@@ -35,7 +38,6 @@ export const TransactionForm = ({ transaction, isOpen, setIsOpen }: Props) => {
   const [formErrors, setFormErrors] = useState<
     Record<string, string | undefined>
   >({});
-  const [message, setMessage] = useState("");
   const [createTransaction, { isLoading: isCreating, error: createError }] =
     useCreateTransactionMutation();
   const [updateTransaction, { isLoading: isUpdating, error: updateError }] =
@@ -69,7 +71,9 @@ export const TransactionForm = ({ transaction, isOpen, setIsOpen }: Props) => {
     };
   }, [isModalMode]);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
 
     setFormData((prev) => ({
@@ -77,7 +81,8 @@ export const TransactionForm = ({ transaction, isOpen, setIsOpen }: Props) => {
       [name]: value,
     }));
     setFormErrors((prev) => ({
-      ...prev, [name]: undefined
+      ...prev,
+      [name]: undefined,
     }));
   };
 
@@ -117,10 +122,11 @@ export const TransactionForm = ({ transaction, isOpen, setIsOpen }: Props) => {
           id: transaction.id,
           transaction: payload,
         }).unwrap();
-        setMessage(response.message!);
+        dispatch(showToast({ message: response.message!, type: "success" }));
         handleClose();
       } else {
-        await createTransaction(payload).unwrap();
+        const response = await createTransaction(payload).unwrap();
+        dispatch(showToast({ message: response.message!, type: "success" }));
         setFormData({
           amount: "",
           description: "",
@@ -129,7 +135,12 @@ export const TransactionForm = ({ transaction, isOpen, setIsOpen }: Props) => {
         });
       }
     } catch (err) {
-      console.error('Transaction error:', err);
+      dispatch(
+        showToast({
+          message: getErrorMessage(err, "Something went wrong"),
+          type: "error",
+        }),
+      );
     }
   };
 
@@ -138,7 +149,9 @@ export const TransactionForm = ({ transaction, isOpen, setIsOpen }: Props) => {
       {error && <div className="error">{getErrorMessage(error)}</div>}
 
       <div className="inputGroup">
-        <label className={styles.label} htmlFor="amount">Amount</label>
+        <label className={styles.label} htmlFor="amount">
+          Amount
+        </label>
         <input
           id="amount"
           name="amount"
@@ -154,7 +167,9 @@ export const TransactionForm = ({ transaction, isOpen, setIsOpen }: Props) => {
       </div>
 
       <div className="inputGroup">
-        <label className={styles.label} htmlFor="description">Description</label>
+        <label className={styles.label} htmlFor="description">
+          Description
+        </label>
         <input
           id="description"
           name="description"
@@ -165,11 +180,15 @@ export const TransactionForm = ({ transaction, isOpen, setIsOpen }: Props) => {
           placeholder="Description"
           required
         />
-        {formErrors.description && <p className="error">{formErrors.description}</p>}
+        {formErrors.description && (
+          <p className="error">{formErrors.description}</p>
+        )}
       </div>
 
       <div className="inputGroup">
-        <label className={styles.label} htmlFor="type">Type</label>
+        <label className={styles.label} htmlFor="type">
+          Type
+        </label>
         <select
           id="type"
           name="type"
@@ -186,7 +205,9 @@ export const TransactionForm = ({ transaction, isOpen, setIsOpen }: Props) => {
       </div>
 
       <div className="inputGroup">
-        <label className={styles.label} htmlFor="date">Date</label>
+        <label className={styles.label} htmlFor="date">
+          Date
+        </label>
         <div className="inputGroupRow">
           <input
             id="date"
@@ -207,15 +228,16 @@ export const TransactionForm = ({ transaction, isOpen, setIsOpen }: Props) => {
             }
           >
             {isLoading
-              ? (isEditMode ? 'Updating...' : 'Creating...')
-              : (isEditMode ? 'Update' : 'Create')
-            }
+              ? isEditMode
+                ? "Updating..."
+                : "Creating..."
+              : isEditMode
+                ? "Update"
+                : "Create"}
           </button>
         </div>
         {formErrors.date && <p className="error">{formErrors.date}</p>}
       </div>
-
-
     </form>
   );
 

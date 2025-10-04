@@ -7,3 +7,5 @@ export { TransactionTable } from "./TransactionTable/TransactionTable.tsx";
 export { TransactionCardList } from "./TransactionCardList/TransactionCardList.tsx";
 export { FiltersBlock } from "./FiltersBlock/FiltersBlock.tsx";
 export { Pagination } from "./Pagination/Pagination.tsx";
+export { Toast } from "./Toast/Toast.tsx"
+
