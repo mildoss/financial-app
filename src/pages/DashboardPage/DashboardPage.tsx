@@ -22,6 +22,7 @@ export const DashboardPage = () => {
   const { data: statsData } = useGetStatsQuery();
 
   const overview = statsData?.overview;
+  const currentMonth = statsData?.current_month;
   const transactions = transData?.transactions;
 
   const handleFilterChange = (newFilter: Partial<TransactionFilter>) => {
@@ -35,24 +36,39 @@ export const DashboardPage = () => {
           {overview &&
           (overview.balance ||
             overview.total_income ||
-            overview.total_expenses) ? (
-            <div>
-              <BalanceChart
-                balance={overview.balance}
-                income={overview.total_income}
-                expenses={overview.total_expenses}
-              />
+            overview.total_expenses ||
+            overview.total_transactions) ? (
+            <div className={styles.chartContent}>
+              <div>
+                <BalanceChart
+                  balance={overview.balance}
+                  income={overview.total_income}
+                  expenses={overview.total_expenses}
+                />
+              </div>
+              <h1 className={styles.title}>
+                Total transactions: {overview.total_transactions}
+              </h1>
             </div>
           ) : null}
-          {/*{overview && (*/}
-          {/*  <div>*/}
-          {/*    <BalanceChart*/}
-          {/*      balance={overview.balance}*/}
-          {/*      income={overview.total_income}*/}
-          {/*      expenses={overview.total_expenses}*/}
-          {/*    />*/}
-          {/*  </div>*/}
-          {/*)}*/}
+          {currentMonth &&
+          (currentMonth.balance ||
+            currentMonth.income ||
+            currentMonth.expenses ||
+            currentMonth.transactions) ? (
+            <div className={styles.chartContent}>
+              <div>
+                <BalanceChart
+                  balance={currentMonth.balance}
+                  income={currentMonth.income}
+                  expenses={currentMonth.expenses}
+                />
+              </div>
+              <h1 className={styles.title}>
+                Transactions this month: {currentMonth.transactions}
+              </h1>
+            </div>
+          ) : null}
         </div>
         <TransactionForm />
         {transactions && (

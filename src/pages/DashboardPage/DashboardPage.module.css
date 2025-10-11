@@ -10,22 +10,52 @@
   margin: 0 auto;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
 
+.chartContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 600;
+  color: var(--gray-100);
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.chartContent > div {
+  width: 400px;
+  height: 400px;
 }
 
 @media (max-width: 920px) {
   .chartWrapper {
     gap: 2rem;
   }
-  .chartWrapper > div {
-    height: 250px;
+  .chartContent > div {
+    width: 300px;
+    height: 300px;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 840px) {
+  .title {
+    font-size: 1rem;
+  }
   .chartWrapper  {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+  }
+  .chartContent {
+    flex-direction: column-reverse;
+  }
+  .chartContent > div {
+    width: 250px;
+    height: 250px;
   }
 }
