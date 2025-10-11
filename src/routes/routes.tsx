@@ -4,6 +4,7 @@ import { AuthPage } from "@pages/AuthPage/AuthPage.tsx";
 import { DashboardPage } from "@pages/DashboardPage/DashboardPage.tsx";
 import { Layout } from "../layout/Layout.tsx";
 import { TransactionsPage } from "@pages/TransactionsPage/TransactionsPage.tsx";
+import { StatsPage } from "@pages/StatsPage/StatsPage.tsx";
 
 export const routes = [
   {
@@ -32,7 +33,7 @@ export const routes = [
       },
       {
         path: "stats",
-        element: <h2>Hello</h2>,
+        element: <StatsPage />,
       },
     ],
   },

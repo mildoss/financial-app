@@ -1,0 +1,69 @@
+.card {
+  background: whitesmoke;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cardIcon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.cardContent {
+  flex: 1;
+}
+
+.cardLabel {
+  font-size: 0.875rem;
+  color: var(--gray-500);
+  margin-bottom: 0.5rem;
+}
+
+.cardValue {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.income {
+  color: var(--success-500);
+}
+
+.expense {
+  color: var(--danger-500);
+}
+
+.balance {
+  color: var(--primary-600);
+}
+
+.neutral {
+  color: var(--gray-900);
+}
+
+@media (max-width: 1100px) {
+  .cardValue {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .cardValue {
+    font-size: 1rem;
+  }
+
+  .cardIcon {
+    font-size: 1.5rem;
+  }
+}
