@@ -1,15 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { LoginForm, RegisterForm } from "@components/index";
 import styles from "./AuthPage.module.css";
 import "@styles/page.css";
 
 export const AuthPage = () => {
   const [activeTab, setActiveTab] = useState<"register" | "login">("login");
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    setMessage("");
-  }, [activeTab, message]);
 
   return (
     <div className={styles.page}>
@@ -37,12 +32,9 @@ export const AuthPage = () => {
           </div>
           <div className={styles.content}>
             {activeTab === "login" ? (
-              <LoginForm message={message} />
+              <LoginForm />
             ) : (
-              <RegisterForm
-                setMessage={setMessage}
-                onChangeActiveTab={() => setActiveTab("login")}
-              />
+              <RegisterForm onChangeActiveTab={() => setActiveTab("login")} />
             )}
           </div>
         </div>

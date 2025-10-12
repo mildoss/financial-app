@@ -5,6 +5,7 @@ import {
   BalanceChart,
   TransactionForm,
   TransactionsList,
+  Spinner,
 } from "@components/index";
 import styles from "./DashboardPage.module.css";
 
@@ -14,12 +15,12 @@ export const DashboardPage = () => {
     dateFrom: null,
     dateTo: null,
   });
-  const { data: transData } = useGetTransactionsQuery({
+  const { data: transData, isLoading: transLoading } = useGetTransactionsQuery({
     type: filter.type,
     limit: 10,
     page: 1,
   });
-  const { data: statsData } = useGetStatsQuery();
+  const { data: statsData, isLoading: statsLoading } = useGetStatsQuery();
 
   const overview = statsData?.overview;
   const currentMonth = statsData?.current_month;
@@ -28,6 +29,14 @@ export const DashboardPage = () => {
   const handleFilterChange = (newFilter: Partial<TransactionFilter>) => {
     setFilter((prev) => ({ ...prev, ...newFilter }));
   };
+
+  if (statsLoading || transLoading) {
+    return (
+      <div className="page">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <div className="page">
@@ -70,6 +79,7 @@ export const DashboardPage = () => {
             </div>
           ) : null}
         </div>
+
         <TransactionForm />
         {transactions && (
           <TransactionsList

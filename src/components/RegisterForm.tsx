@@ -1,6 +1,8 @@
 import { type ChangeEvent, type FC, type FormEvent, useState } from "react";
+import { useDispatch } from "react-redux";
 import type { RegisterRequest } from "../types.ts";
 import { useRegisterMutation } from "@store/api.ts";
+import { showToast } from "@store/toastSlice.ts";
 import { validateRegisterForm } from "@utils/validators.ts";
 import { getErrorMessage } from "@utils/errorUtils.ts";
 import "@styles/page.css";
@@ -8,10 +10,10 @@ import "@styles/form.css";
 
 interface Props {
   onChangeActiveTab: () => void;
-  setMessage: (value: string) => void;
 }
 
-export const RegisterForm: FC<Props> = ({ onChangeActiveTab, setMessage }) => {
+export const RegisterForm: FC<Props> = ({ onChangeActiveTab }) => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState<RegisterRequest>({
     name: "",
     email: "",
@@ -55,11 +57,13 @@ export const RegisterForm: FC<Props> = ({ onChangeActiveTab, setMessage }) => {
     }
 
     try {
-      const result = await register(formData).unwrap();
-      setMessage(result.message);
+      await register(formData).unwrap();
+      dispatch(
+        showToast({ message: "Register successfully", type: "success" }),
+      );
       onChangeActiveTab();
     } catch (err) {
-      console.log(err);
+      dispatch(showToast({ message: getErrorMessage(err), type: "error" }));
     }
   };
 

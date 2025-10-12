@@ -1,11 +1,36 @@
-import { FinancialCard } from "@components/FinancialCard/FinancialCard.tsx";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useGetStatsQuery } from "@store/api.ts";
+import { showToast } from "@store/toastSlice.ts";
+import { FinancialCard, Spinner } from "@components/index.ts";
 import styles from "./StatsPage.module.css";
 
 export const StatsPage = () => {
-  const { data: statsData } = useGetStatsQuery();
+  const dispatch = useDispatch();
+  const {
+    data: statsData,
+    isLoading: statsLoading,
+    isError: statsError,
+  } = useGetStatsQuery();
   const overview = statsData?.overview;
   const currentMonth = statsData?.current_month;
+
+  useEffect(() => {
+    if (statsError) {
+      dispatch(
+        showToast({ message: "Failed to load transactions", type: "error" }),
+      );
+    }
+  }, [statsError, dispatch]);
+
+  if (statsLoading) {
+    return (
+      <div className="page">
+        <Spinner />
+      </div>
+    );
+  }
+
   return (
     <div className="page">
       <div className="page-container">

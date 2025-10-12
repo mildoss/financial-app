@@ -2,6 +2,9 @@ import { useDeleteTransactionMutation } from "@store/api.ts";
 import type { Transaction } from "types.ts";
 import { formatAmount, formatDate } from "@utils/format.ts";
 import styles from "./TransactionCardList.module.css";
+import {showToast} from "@store/toastSlice.ts";
+import {useDispatch} from "react-redux";
+import {getErrorMessage} from "@utils/errorUtils.ts";
 
 interface Props {
   transactions: Transaction[];
@@ -14,9 +17,16 @@ export const TransactionCardList = ({
   setSelectedTransaction,
   setIsOpenModal,
 }: Props) => {
+  const dispatch = useDispatch();
   const [deleteTransaction] = useDeleteTransactionMutation();
-  const handleDelete = (id: number) => {
-    deleteTransaction(id);
+
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteTransaction(id).unwrap();
+      dispatch(showToast({ message: "Deleted successfully", type: "success" }));
+    } catch (err) {
+      dispatch(showToast({ message: getErrorMessage(err), type: "error" }));
+    }
   };
 
   const handleEdit = (transaction: Transaction) => {

@@ -118,15 +118,19 @@ export const TransactionForm = ({ transaction, isOpen, setIsOpen }: Props) => {
         amount: Number(formData.amount),
       };
       if (isEditMode && transaction) {
-        const response = await updateTransaction({
+        await updateTransaction({
           id: transaction.id,
           transaction: payload,
         }).unwrap();
-        dispatch(showToast({ message: response.message!, type: "success" }));
+        dispatch(
+          showToast({ message: "Updated successfully", type: "success" }),
+        );
         handleClose();
       } else {
-        const response = await createTransaction(payload).unwrap();
-        dispatch(showToast({ message: response.message!, type: "success" }));
+        await createTransaction(payload).unwrap();
+        dispatch(
+          showToast({ message: "Create successfully", type: "success" }),
+        );
         setFormData({
           amount: "",
           description: "",
@@ -199,7 +203,7 @@ export const TransactionForm = ({ transaction, isOpen, setIsOpen }: Props) => {
         >
           <option value="">Select type</option>
           <option value="income">Income</option>
-          <option value="expense">Expense</option>
+          <option value="expense">Expenses</option>
         </select>
         {formErrors.type && <p className="error">{formErrors.type}</p>}
       </div>
