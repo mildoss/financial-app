@@ -14,7 +14,7 @@ import type {
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000",
+    baseUrl: "https://financal-app-back.onrender.com",
     credentials: "include",
   }),
   tagTypes: ["Transactions", "Stats"],
