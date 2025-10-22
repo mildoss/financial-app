@@ -7,6 +7,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig({
+  // server: {
+  //   allowedHosts: ['7032343a9869.ngrok-free.app'],
+  // },
   plugins: [react()],
   resolve: {
     alias: {

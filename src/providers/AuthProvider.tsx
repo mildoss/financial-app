@@ -1,19 +1,25 @@
 import { type ReactNode, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useGetCurrentUserQuery } from "@store/api";
-import { setUser } from "@store/authSlice";
+import {logout, setUser} from "@store/authSlice";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const { data: user, isLoading, error } = useGetCurrentUserQuery();
+  const token = localStorage.getItem('token');
   const dispatch = useDispatch();
+
+  const { data: user, error } = useGetCurrentUserQuery(undefined, {
+    skip: !token,
+  });
 
   useEffect(() => {
     if (user) {
       dispatch(setUser(user));
     } else if (error) {
-      console.log(error);
+      // ✅ Если токен невалидный - чистим
+      localStorage.removeItem('token');
+      dispatch(logout());
     }
-  }, [user, isLoading, error]);
+  }, [user, error, dispatch,token]);
 
   return <>{children}</>;
 };

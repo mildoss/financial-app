@@ -1,17 +1,16 @@
 import { type ChangeEvent, type FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import type { LoginRequest } from "../types.ts";
-import { useNavigate } from "react-router-dom";
 import { useGetCurrentUserQuery, useLoginMutation } from "@store/api.ts";
 import { validateLoginForm } from "@utils/validators.ts";
 import { getErrorMessage } from "@utils/errorUtils.ts";
 import "@styles/page.css";
 import "@styles/form.css";
 import { showToast } from "@store/toastSlice.ts";
+import {setUser} from "@store/authSlice.ts";
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [formData, setFormData] = useState<LoginRequest>({
     email: "",
@@ -54,8 +53,10 @@ export const LoginForm = () => {
 
     try {
       await login(formData).unwrap();
-      await refetch();
-      navigate("/");
+      const {data:user} = await refetch();
+      if (user) {
+        dispatch(setUser(user));
+      }
     } catch (err) {
       dispatch(showToast({ message: getErrorMessage(err), type: "error" }));
     }

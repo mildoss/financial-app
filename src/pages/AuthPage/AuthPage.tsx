@@ -32,9 +32,9 @@ export const AuthPage = () => {
           </div>
           <div className={styles.content}>
             {activeTab === "login" ? (
-              <LoginForm />
+              <LoginForm/>
             ) : (
-              <RegisterForm onChangeActiveTab={() => setActiveTab("login")} />
+              <RegisterForm/>
             )}
           </div>
         </div>

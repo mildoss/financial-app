@@ -1,18 +1,15 @@
-import { type ChangeEvent, type FC, type FormEvent, useState } from "react";
+import { type ChangeEvent, type FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import type { RegisterRequest } from "../types.ts";
-import { useRegisterMutation } from "@store/api.ts";
+import {useGetCurrentUserQuery, useRegisterMutation} from "@store/api.ts";
 import { showToast } from "@store/toastSlice.ts";
 import { validateRegisterForm } from "@utils/validators.ts";
 import { getErrorMessage } from "@utils/errorUtils.ts";
 import "@styles/page.css";
 import "@styles/form.css";
+import {setUser} from "@store/authSlice.ts";
 
-interface Props {
-  onChangeActiveTab: () => void;
-}
-
-export const RegisterForm: FC<Props> = ({ onChangeActiveTab }) => {
+export const RegisterForm = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState<RegisterRequest>({
     name: "",
@@ -25,7 +22,7 @@ export const RegisterForm: FC<Props> = ({ onChangeActiveTab }) => {
     email?: string;
     password?: string;
   }>({});
-
+  const { refetch } = useGetCurrentUserQuery();
   const [register, { isLoading, error }] = useRegisterMutation();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -58,10 +55,14 @@ export const RegisterForm: FC<Props> = ({ onChangeActiveTab }) => {
 
     try {
       await register(formData).unwrap();
+      const {data:user} = await refetch();
+      if (user) {
+        dispatch(setUser(user));
+      }
       dispatch(
         showToast({ message: "Register successfully", type: "success" }),
       );
-      onChangeActiveTab();
+      // onChangeActiveTab();
     } catch (err) {
       dispatch(showToast({ message: getErrorMessage(err), type: "error" }));
     }

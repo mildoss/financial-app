@@ -1,4 +1,10 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  type BaseQueryFn,
+  createApi,
+  type FetchArgs,
+  fetchBaseQuery,
+  type FetchBaseQueryError
+} from "@reduxjs/toolkit/query/react";
 import type {
   AuthResponse,
   LoginRequest,
@@ -11,12 +17,31 @@ import type {
   TransactionType,
 } from "types.ts";
 
+const baseQueryWithAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
+  args,
+  api,
+  extraOptions
+) => {
+  const token = localStorage.getItem('token');
+
+  const baseQuery = fetchBaseQuery({
+    baseUrl: "http://localhost:4000",
+    prepareHeaders: (headers) => {
+      headers.set('bypass-tunnel-reminder', 'true');
+
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
+  });
+
+  return baseQuery(args, api, extraOptions);
+};
+
 export const api = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "https://financal-app-back.onrender.com",
-    credentials: "include",
-  }),
+  baseQuery: baseQueryWithAuth,
   tagTypes: ["Transactions", "Stats"],
   endpoints: (builder) => ({
     register: builder.mutation<RegisterResponse, RegisterRequest>({
@@ -25,6 +50,14 @@ export const api = createApi({
         method: "POST",
         body: data,
       }),
+      async onQueryStarted(_arg, { queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          localStorage.setItem('token', data.token);
+        } catch (error) {
+          console.error('Register failed:', error);
+        }
+      },
     }),
     login: builder.mutation<LoginResponse, LoginRequest>({
       query: (data) => ({
@@ -32,12 +65,23 @@ export const api = createApi({
         method: "POST",
         body: data,
       }),
+      async onQueryStarted(_arg, { queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          localStorage.setItem('token', data.token);
+        } catch (error) {
+          console.error('Login failed:', error);
+        }
+      },
     }),
     logout: builder.mutation<{ message: string }, void>({
       query: () => ({
         url: "/auth/logout",
         method: "POST",
       }),
+      async onQueryStarted() {
+        localStorage.removeItem('token');
+      },
     }),
     getCurrentUser: builder.query<AuthResponse, void>({
       query: () => "/auth/me",
