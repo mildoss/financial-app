@@ -11,7 +11,7 @@ import type {
   LoginResponse,
   RegisterRequest,
   RegisterResponse,
-  StatsResponse,
+  StatsResponse, StatsResponseMonthly,
   TransactionRequest,
   TransactionsResponse,
   TransactionType,
@@ -152,6 +152,10 @@ export const api = createApi({
       query: () => "/stats",
       providesTags: ["Stats"],
     }),
+    getStatsMonthly: builder.query<StatsResponseMonthly,void>({
+      query: () => "/stats/monthly",
+      providesTags: ["Stats"],
+    })
   }),
 });
 
@@ -165,4 +169,5 @@ export const {
   useUpdateTransactionMutation,
   useDeleteTransactionMutation,
   useGetStatsQuery,
+  useGetStatsMonthlyQuery
 } = api;

@@ -96,3 +96,51 @@ export interface StatsResponse {
   top_expense_categories: ExpenseCategory[];
   recent_transactions: Transaction[];
 }
+
+export interface MonthlyData {
+  month: number;
+  month_name: string;
+  income: number;
+  expenses: number;
+  balance: number;
+  transactions_count: number;
+}
+
+interface YearlySummary {
+  total_income: number;
+  total_expenses: number;
+  balance: number;
+  total_transactions: number;
+  avg_monthly_income: number;
+  avg_monthly_expenses: number;
+
+}
+
+export interface StatsResponseMonthly {
+  year: number;
+  monthly_data: MonthlyData[];
+  yearly_summary: YearlySummary;
+}
+
+// {
+//   "type": "expense",
+//   "categories": [
+//   {
+//     "category": "Продукты",
+//     "total_amount": 15000.00,
+//     "transaction_count": 45,
+//     "avg_amount": 333.33,
+//     "max_amount": 2000.00,
+//     "min_amount": 50.00
+//   },
+//   {
+//     "category": "Транспорт",
+//     "total_amount": 8000.00,
+//     "transaction_count": 20,
+//     "avg_amount": 400.00,
+//     "max_amount": 1500.00,
+//     "min_amount": 100.00
+//   }
+// ],
+//   "total_categories": 2
+// }
