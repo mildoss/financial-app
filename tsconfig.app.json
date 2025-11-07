@@ -31,6 +31,7 @@
       "@routes/*": ["routes/*"],
       "@utils/*": ["utils/*"],
       "@store/*": ["store/*"],
+      "@hooks/*": ["hooks/*"]
     }
   },
   "include": ["src"]

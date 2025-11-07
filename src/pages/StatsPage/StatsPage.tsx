@@ -1,29 +1,13 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useGetStatsQuery } from "@store/api.ts";
-import { showToast } from "@store/toastSlice.ts";
 import { FinancialCard, Spinner } from "@components/index.ts";
 import styles from "./StatsPage.module.css";
+import { MonthlyChart } from "@components/MonthlyChart.tsx";
+import { useStatsData } from "@hooks/index.ts";
 
 export const StatsPage = () => {
-  const dispatch = useDispatch();
-  const {
-    data: statsData,
-    isLoading: statsLoading,
-    isError: statsError,
-  } = useGetStatsQuery();
-  const overview = statsData?.overview;
-  const currentMonth = statsData?.current_month;
+  const { isLoading, overview, currentMonth, monthlyData, year, monthlyStats } =
+    useStatsData();
 
-  useEffect(() => {
-    if (statsError) {
-      dispatch(
-        showToast({ message: "Failed to load transactions", type: "error" }),
-      );
-    }
-  }, [statsError, dispatch]);
-
-  if (statsLoading) {
+  if (isLoading) {
     return (
       <div className="page">
         <Spinner />
@@ -63,7 +47,7 @@ export const StatsPage = () => {
               <h2 className={styles.title}>Current month</h2>
               <div className={styles.metricsRow}>
                 <FinancialCard
-                  icon={"💰"}
+                  icon="💰"
                   label="Income"
                   type="income"
                   value={currentMonth.income}
@@ -77,6 +61,27 @@ export const StatsPage = () => {
               </div>
             </div>
           )}
+        </div>
+        <MonthlyChart chartData={monthlyData} year={year} />
+        <div className={styles.metricsRow}>
+          <FinancialCard
+            icon={"💰"}
+            label={`Most income month: ${monthlyStats.bestMonth?.month_name ?? ""}`}
+            type="income"
+            value={monthlyStats.bestMonth?.income ?? 0}
+          />
+          <FinancialCard
+            icon={"💸"}
+            label={`Most expenses month: ${monthlyStats.worstMonth?.month_name ?? ""}`}
+            type="expense"
+            value={monthlyStats.worstMonth?.expenses ?? 0}
+          />
+          <FinancialCard
+            icon={"💳"}
+            label={`Most transaction month: ${monthlyStats.mostTransactionsMonth?.month_name ?? ""}`}
+            type="neutral"
+            value={monthlyStats.mostTransactionsMonth?.transactions_count ?? 0}
+          />
         </div>
       </div>
     </div>
